@@ -1,5 +1,7 @@
 import helix
 from sentence_transformers import SentenceTransformer
+import json
+
 
 model = SentenceTransformer("Qwen/Qwen3-Embedding-0.6B")
 db = helix.Client(local=True, port=6973, verbose=True)
@@ -40,56 +42,61 @@ for lab in labs:
 
 
 
-professors = [
-    {
-        "name": "James",
-        "title": "Assistant Professor",
-        "page": "https://james.com",
-        "department": ["Computer Science"],
-        "university": ["Uni X"],
-        "bio": "James is an Assistant Professor whose work sits at the intersection of basketball analytics, computer vision, and large-scale machine learning. His research focuses on turning raw player-tracking video, wearable-sensor streams, and play-by-play logs into actionable insights for teams, coaches, and broadcasters. Signature projects include ShotNet— a deep learning model that predicts shot success probability in real time— and DunkGPT, a language model fine-tuned on millions of play descriptions to generate advanced scouting reports.",
-        "key_research_areas": [
-            {
-                "area": "Computer Vision for Basketball",
-                "description": "Designing CNN and Transformer architectures that track player pose, ball trajectory, and court zones to quantify defensive pressure and shooting mechanics."
-            },
-            {
-                "area": "Predictive Modelling & Simulation",
-                "description": "Building Monte-Carlo and sequence models that forecast possession outcomes and season performance using play-by-play and spatial data."
-            },
-            {
-                "area": "Sports Analytics with Large Language Models",
-                "description": "Leveraging LLMs to explain model outputs, auto-generate commentary, and mine historical game archives for strategic patterns."
-            }
-        ],
-        "labs": [
-            {
-                "name": "Basketball Data Science Lab",
-                "research_focus": "An interdisciplinary group combining data science, biomechanics, and sport psychology to create next-generation analytics tools for basketball."
-            }
-        ]
-    },
-    {
-        "name": "Thuong Le",
-        "title": "Database Engineer",
-        "page": "https://james.com",
-        "department": ["Computer Science"],
-        "university": ["Uni X"],
-        "bio": "Thuong Le is an Assistant Professor whose work sits at the intersection of basketball analytics, computer vision, and large-scale machine learning. His research focuses on turning raw player-tracking video, wearable-sensor streams, and play-by-play logs into actionable insights for teams, coaches, and broadcasters. Signature projects include ShotNet— a deep learning model that predicts shot success probability in real time— and DunkGPT, a language model fine-tuned on millions of play descriptions to generate advanced scouting reports.",
-        "key_research_areas": [
-            {
-                "area": "Fairness & Ethics in Sports AI",
-                "description": "Studying method bias and acomplishing equitable analytics across different games, appearance"
-            }
-        ],
-        "labs": [
-            {
-                "name": "Basketball Data Science Lab",
-                "research_focus": "An interdisciplinary group combining data science, biomechanics, and sport psychology to create next-generation analytics tools for basketball."
-            }
-        ]
-    }
-]
+# professors = [
+#     {
+#         "name": "James",
+#         "title": "Assistant Professor",
+#         "page": "https://james.com",
+#         "department": ["Computer Science"],
+#         "university": ["Uni X"],
+#         "bio": "James is an Assistant Professor whose work sits at the intersection of basketball analytics, computer vision, and large-scale machine learning. His research focuses on turning raw player-tracking video, wearable-sensor streams, and play-by-play logs into actionable insights for teams, coaches, and broadcasters. Signature projects include ShotNet— a deep learning model that predicts shot success probability in real time— and DunkGPT, a language model fine-tuned on millions of play descriptions to generate advanced scouting reports.",
+#         "key_research_areas": [
+#             {
+#                 "area": "Computer Vision for Basketball",
+#                 "description": "Designing CNN and Transformer architectures that track player pose, ball trajectory, and court zones to quantify defensive pressure and shooting mechanics."
+#             },
+#             {
+#                 "area": "Predictive Modelling & Simulation",
+#                 "description": "Building Monte-Carlo and sequence models that forecast possession outcomes and season performance using play-by-play and spatial data."
+#             },
+#             {
+#                 "area": "Sports Analytics with Large Language Models",
+#                 "description": "Leveraging LLMs to explain model outputs, auto-generate commentary, and mine historical game archives for strategic patterns."
+#             }
+#         ],
+#         "labs": [
+#             {
+#                 "name": "Basketball Data Science Lab",
+#                 "research_focus": "An interdisciplinary group combining data science, biomechanics, and sport psychology to create next-generation analytics tools for basketball."
+#             }
+#         ]
+#     },
+#     {
+#         "name": "Thuong Le",
+#         "title": "Database Engineer",
+#         "page": "https://james.com",
+#         "department": ["Computer Science"],
+#         "university": ["Uni X"],
+#         "bio": "Thuong Le is an Assistant Professor whose work sits at the intersection of basketball analytics, computer vision, and large-scale machine learning. His research focuses on turning raw player-tracking video, wearable-sensor streams, and play-by-play logs into actionable insights for teams, coaches, and broadcasters. Signature projects include ShotNet— a deep learning model that predicts shot success probability in real time— and DunkGPT, a language model fine-tuned on millions of play descriptions to generate advanced scouting reports.",
+#         "key_research_areas": [
+#             {
+#                 "area": "Fairness & Ethics in Sports AI",
+#                 "description": "Studying method bias and acomplishing equitable analytics across different games, appearance"
+#             }
+#         ],
+#         "labs": [
+#             {
+#                 "name": "Basketball Data Science Lab",
+#                 "research_focus": "An interdisciplinary group combining data science, biomechanics, and sport psychology to create next-generation analytics tools for basketball."
+#             }
+#         ]
+#     }
+# ]
+
+with open("./python_code/generate_professor_profiles/professors.json", "r", encoding="utf-8") as f:
+    professors = json.load(f)
+
+print("professors:", professors)
 
 for professor in professors:
     # Create Professor Node
